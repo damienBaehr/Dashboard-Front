@@ -1,3 +1,4 @@
+import { redirect} from "react-router-dom";
 import { User } from "../models/User";
 
 export const register= async (user: User) => {
@@ -19,7 +20,6 @@ export const register= async (user: User) => {
 }
 
 export const loginin = async (user: User) => {
-
     const response = await fetch('http://localhost:3000/api/authentification/login', {
         method: 'POST',
         headers: {
@@ -31,6 +31,8 @@ export const loginin = async (user: User) => {
     if(response.ok){
         const responseJson = await response.json();
         localStorage.setItem('token', responseJson.token);
+        redirect("/form");
+
         return await response.json();
     } else {
         return await response.json();
