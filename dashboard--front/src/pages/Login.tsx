@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { User } from "../models/User";
-import { loginin, register } from "../services/User.services";
+import { loginIn, register } from "../services/User.services";
 import Bouton from "../components/Bouton";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
+const Login: React.FC = () => { 
   const [username, setUsername] = useState("");
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate(); 
 
   const emailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -49,7 +51,7 @@ function Login() {
     }
   };
 
-  const login = async () => {
+  const loginUser = async () => {
     if (username !== "" && email !== "" && password !== "") {
       const user: User = {
         email: email,
@@ -57,7 +59,8 @@ function Login() {
       };
       console.log(user);
       try {
-        await loginin(user);
+        await loginIn(user);
+        navigate('/form') 
       } catch (e) {
         console.log(e);
       }
@@ -65,6 +68,7 @@ function Login() {
       console.log("Veuillez remplir tous les champs");
     }
   };
+
   return (
     <>
       <div className="flex justify-center items-center h-[100vh]">
@@ -102,14 +106,14 @@ function Login() {
               </div>
             </div>
             <div className="flex flex-col gap-5 mt-8">
-              <Bouton envoyer={registered} nameLabel={"Register"}/>
-              <Bouton envoyer={login} nameLabel={"Login"}/>
+              <Bouton envoyer={registered} nameLabel={"Register"} />
+              <Bouton envoyer={loginUser} nameLabel={"Login"} />
             </div>
           </div>
         </div>
       </div>
     </>
   );
-}
+};
 
 export default Login;

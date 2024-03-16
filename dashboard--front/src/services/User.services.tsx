@@ -19,7 +19,7 @@ export const register= async (user: User) => {
     }
 }
 
-export const loginin = async (user: User) => {
+export const loginIn = async (user: User) => {
     const response = await fetch('http://localhost:3000/api/authentification/login', {
         method: 'POST',
         headers: {
