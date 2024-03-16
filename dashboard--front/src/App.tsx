@@ -11,7 +11,16 @@ function App() {
 
   const emailInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    console.log(email);
+  };
+
+  const isEmailCorrect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const email = e.target.value;
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (emailRegex.test(email)) {
+      console.log("email correct");
+    } else {
+      console.log("email incorrect");
+    }
   };
 
   const passwordInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,18 +42,33 @@ function App() {
     console.log(user);
     try {
       await register(user);
-    } catch(e) {
+    } catch (e) {
       console.log(e);
     }
-    
   };
   return (
     <>
       <h1 className="font-bold">AD LAURENT</h1>
       <div>
-        <input type="text" className="border-2" onChange={usernameInput} />
-        <input type="text" className="border-2" onChange={emailInput} />
-        <input type="text" className="border-2" onChange={passwordInput} />
+        <input
+          type="text"
+          className="border-2"
+          onChange={usernameInput}
+          placeholder="username"
+        />
+        <input
+          type="text"
+          className="border-2"
+          onChange={emailInput}
+          onBlur={isEmailCorrect}
+          placeholder="email"
+        />
+        <input
+          type="text"
+          className="border-2"
+          onChange={passwordInput}
+          placeholder="password"
+        />
         <button className="bg-blue-500 text-white" onClick={envoyer}>
           Submit
         </button>
