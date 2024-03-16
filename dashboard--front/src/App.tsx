@@ -34,6 +34,7 @@ function App() {
   };
 
   const envoyer = async () => {
+    if(username !== "" && email !== "" && password !== ""){
     const user: User = {
       username: username,
       email: email,
@@ -41,37 +42,61 @@ function App() {
     };
     console.log(user);
     try {
-      await register(user);
+      const reponse = await register(user);
+      console.log(reponse.status);
     } catch (e) {
       console.log(e);
     }
-  };
+  }else{
+    console.log("Veuillez remplir tous les champs")
+  }
+  }
   return (
     <>
-      <h1 className="font-bold">AD LAURENT</h1>
-      <div>
-        <input
-          type="text"
-          className="border-2"
-          onChange={usernameInput}
-          placeholder="username"
-        />
-        <input
-          type="text"
-          className="border-2"
-          onChange={emailInput}
-          onBlur={isEmailCorrect}
-          placeholder="email"
-        />
-        <input
-          type="text"
-          className="border-2"
-          onChange={passwordInput}
-          placeholder="password"
-        />
-        <button className="bg-blue-500 text-white" onClick={envoyer}>
-          Submit
-        </button>
+      <div className="flex justify-center items-center h-[100vh]">
+        <div className="w-1.5/3 h-fit bg-white rounded-2xl p-7 ">
+          <p className="flex justify-center">Login</p>
+          <div className="mt-2">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col space-y-2">
+                <label>Username</label>
+                <input
+                  type="text"
+                  className="border-2 rounded"
+                  onChange={usernameInput}
+                  placeholder="Set username"
+                />
+              </div>
+              <div className="flex flex-col space-y-2">
+                <label>Email</label>
+                <input
+                  type="text"
+                  className="border-2 rounded"
+                  onChange={emailInput}
+                  onBlur={isEmailCorrect}
+                  placeholder="Set email"
+                />
+              </div>
+              <div className="flex flex-col space-y-2">
+                <label>Password</label>
+                <input
+                  type="text"
+                  className="border-2 rounded"
+                  onChange={passwordInput}
+                  placeholder="Set password"
+                />
+              </div>
+            </div>
+            <div className="flex flex-row-reverse gap-5 mt-8">
+              <button
+                className="bg-blue-500 text-white rounded p-1 "
+                onClick={envoyer}
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

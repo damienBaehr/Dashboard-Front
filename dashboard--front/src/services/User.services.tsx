@@ -11,6 +11,7 @@ export const register= async (user: User) => {
     });
 
     if(response.ok){
+        console.log(response.status)
         return await response.json();
     } else {
         return await response.json();
